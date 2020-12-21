@@ -36,7 +36,7 @@ namespace '/api/v1' do
   end
 
   # NOTE: this endpoint allows requests like /2019-12-31 (Fixer Historical Rates)
-  get %r{\/20\d{2}-\d{2}-\d{2}} do
+  get %r{/20\d{2}-\d{2}-\d{2}} do
     # optional params: base, symbols
     requested_date = Date.parse(request.path_info.split('/').last)
 
@@ -55,7 +55,6 @@ namespace '/api/v1' do
 
     json ExchangeRateSerializer.new(rate).to_json
   end
-
 
   get '/timeseries' do
     # NOTE: Only paid Fixer subscription  allows this request

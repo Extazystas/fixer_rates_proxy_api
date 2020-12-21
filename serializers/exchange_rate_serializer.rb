@@ -6,7 +6,7 @@ class ExchangeRateSerializer
   end
 
   def as_json(*)
-    data = {
+    {
       base: rate.base,
       date: rate.date,
       symbols: rate.symbols,
