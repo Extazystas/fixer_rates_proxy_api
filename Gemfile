@@ -5,3 +5,4 @@ gem 'sinatra'
 # e.g. sinatra/config_file: Allows loading configuration from yaml files
 gem 'sinatra-contrib'
 gem 'pry'
+gem 'rspec'
