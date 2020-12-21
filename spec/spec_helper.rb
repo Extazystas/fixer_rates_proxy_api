@@ -12,10 +12,10 @@ RSpec.configure do |config|
   config.include Mongoid::Matchers
 
   config.before(:suite) do
-    ExchangeRate.delete_all
+    Mongoid.purge!
   end
 
   config.after(:each) do
-    ExchangeRate.delete_all
+    Mongoid.purge!
   end
 end

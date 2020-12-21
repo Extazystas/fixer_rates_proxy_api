@@ -25,4 +25,10 @@ It takes params:
 ## Setup
 You can run this app with `rackup -p 4567`:
 
+## Run tests:
+`RACK_ENV=test rspec spec/`
+
 ## API example call:
+```
+http://localhost:4567/api/v1/timeseries?start_date=2020-12-01&end_date=2020-12-03&base=EUR&symbols=GBP,DKK,USD
+```

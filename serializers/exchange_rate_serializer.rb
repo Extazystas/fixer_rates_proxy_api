@@ -9,6 +9,7 @@ class ExchangeRateSerializer
     data = {
       base: rate.base,
       date: rate.date,
+      symbols: rate.symbols,
       rates: rate.rates
     }
   end
