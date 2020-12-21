@@ -1,0 +1,2 @@
+default: &common_settings
+  fixer_api_key: '111'
