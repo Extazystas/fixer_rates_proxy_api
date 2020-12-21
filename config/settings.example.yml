@@ -1,2 +1,8 @@
 default: &common_settings
   fixer_api_key: '111'
+
+development:
+  <<: *common_settings
+
+production:
+  <<: *common_settings

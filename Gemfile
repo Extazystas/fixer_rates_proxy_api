@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'mongoid'
+gem 'mongoid-rspec'
 gem 'pry'
 gem 'rspec'
 # Static ruby code analyzer (linter)

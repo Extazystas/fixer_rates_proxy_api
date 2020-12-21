@@ -4,6 +4,8 @@ require 'sinatra/json'
 require 'pry'
 require 'mongoid'
 
+%w{entities services}.each { |dir| Dir.glob("./#{dir}/*.rb", &method(:require)) }
+
 Mongoid.load! 'mongoid.config'
 
 config_file 'config/settings.yml'
