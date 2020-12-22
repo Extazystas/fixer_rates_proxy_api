@@ -6,14 +6,18 @@
 </p>
 
 ## Description
+API has 3 endpoints:
+1) any date request e.g. `api/v1/2019-12-17`
+2) current rates request `api/v1/latest`
+3) dates period request `api/v1/timeseries` (its paid feature in Fixer, so use carefully - each day is 1 request)
+
 It takes params:
-- String `base`
-- String `start_date`, `end_date` (e.g. `2020-12-12`)
-- Array `currencies` (e.g. ['USD', 'DKK'])
+- String `base` (e.g. `base=EUR`). Default value is `EUR`.
+- String `symbols` (e.g. `symbols=USD,DKK`). Default value is `USD`.
+- String `start_date`, `end_date` (e.g. `2020-12-12`) only for `/timeseries` endpoint
 
 - Units specs written with `Rspec`.
-- Rates info is fetched from Fixer.io, cached in Redis and persisted in MongoDB.
-
+- Rates info is fetched from Fixer.io, cached with Redis and stored in MongoDB.
 - **Rubocop** is used for a good code style. Run example: `rubocop`
 
 ## Tech info:
@@ -23,12 +27,22 @@ It takes params:
 * Persistance layer: MongoDB
 
 ## Setup
-You can run this app with `rackup -p 4567`:
+You can start this app with `rackup -p 4567`:
 
 ## Run tests:
 `RACK_ENV=test rspec spec/`
 
 ## API example call:
 ```
-http://localhost:4567/api/v1/timeseries?start_date=2020-12-01&end_date=2020-12-03&base=EUR&symbols=GBP,DKK,USD
+curl -H "Content-Type: application/json" http://localhost:4567/api/v1/timeseries?start_date=2020-12-20&end_date=2020-12-22&base=EUR&symbols=GBP,USD
+
+curl -H "Content-Type: application/json" http://localhost:4567/api/v1/2019-12-17?symbols=GBP,USD
+
+curl -H "Content-Type: application/json" http://localhost:4567/api/v1/latest\?symbols\=GBP,USD,DKK
 ```
+
+## TODO List
+- Add API authentication (e.g. with jwt)
+- Add logging system
+- Configure docker-compose to avoid manual installation of MongoDB and Redis
+- Add tests for app helpers
