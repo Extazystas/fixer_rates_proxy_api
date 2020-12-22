@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'faraday'
 gem 'mongoid'
 gem 'mongoid-rspec'
 gem 'pry'

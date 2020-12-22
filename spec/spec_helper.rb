@@ -2,6 +2,7 @@ require 'sinatra'
 require 'rspec'
 require 'mongoid'
 require 'mongoid-rspec'
+require 'pry'
 
 ENV['MONGOID_ENV'] = 'test'
 Mongoid.load! 'mongoid.config'

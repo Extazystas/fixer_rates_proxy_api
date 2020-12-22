@@ -6,3 +6,6 @@ development:
 
 production:
   <<: *common_settings
+
+test:
+  <<: *common_settings
