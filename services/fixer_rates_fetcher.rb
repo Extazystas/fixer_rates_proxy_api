@@ -14,7 +14,6 @@ class FixerRatesFetcher
     @symbols = symbols.join(',')
   end
 
-  # NOTE: response example: {"success":true,"timestamp":1608508799,"historical":true,"base":"EUR","date":"2020-12-20","rates":{"USD":1.221575}}
   def call
     response = Faraday.get("#{BASE_URL}/#{date}", query_params, { 'Accept' => 'application/json' })
     JSON.parse(response.body)

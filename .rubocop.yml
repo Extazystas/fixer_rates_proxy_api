@@ -2245,7 +2245,7 @@ Security/MarshalLoad:
                  Avoid using of `Marshal.load` or `Marshal.restore` due to potential
                  security issues. See reference for more information.
   Reference: 'https://ruby-doc.org/core-2.7.0/Marshal.html#module-Marshal-label-Security+considerations'
-  Enabled: true
+  Enabled: false
   VersionAdded: '0.47'
 
 Security/Open:

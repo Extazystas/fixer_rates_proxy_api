@@ -16,8 +16,6 @@ config_file 'config/settings.yml'
 set :app_file, __FILE__
 set :environment, :development
 
-include RedisStore
-
 namespace '/api/v1' do
   before do
     content_type 'application/json'

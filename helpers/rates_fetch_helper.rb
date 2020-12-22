@@ -13,10 +13,10 @@ module Sinatra
     def request_rate_for(date)
       @date = date
 
-      get_existing_rate_for || create_rate_from_api
+      fetch_existing_rate_for || create_rate_from_api
     end
 
-    def get_existing_rate_for
+    def fetch_existing_rate_for
       cached_marshalled_rate = get_from_cache(cache_key)
       cached_rate  = cached_marshalled_rate && Marshal.load(cached_marshalled_rate)
       rate_from_db = ExchangeRate.base(base).date(date.to_s).symbols(symbols).first
@@ -41,7 +41,7 @@ module Sinatra
     end
 
     def cache_key
-      "#{date.to_s}_#{symbols.join('_')}"
+      "#{date}_#{symbols.join('_')}"
     end
   end
 
