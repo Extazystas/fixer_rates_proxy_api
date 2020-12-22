@@ -23,29 +23,6 @@ namespace '/api/v1' do
     content_type 'application/json'
   end
 
-  helpers do
-    def symbols
-      params[:symbols]&.split(',') || ['USD']
-    end
-
-    def base
-      params[:base] || 'EUR'
-    end
-
-    def cache_key(date)
-      "#{date.to_s}_#{symbols.join('_')}"
-    end
-
-    def request_rate_for(date)
-      cached_rate  = Marshal.load(get_from_cache(cache_key(date)))
-      rate_from_db = ExchangeRate.base(base).date(date.to_s).symbols(symbols).first
-
-      existing_rate = cached_rate || rate_from_db
-
-      # TODO: fetch_and_store_rate if existing_rate.blank?
-    end
-  end
-
   # NOTE: this endpoint allows requests like /2019-12-31 (Fixer Historical Rates)
   get %r{/20\d{2}-\d{2}-\d{2}} do
     # optional params: base, symbols
