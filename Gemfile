@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'mongoid'
 gem 'mongoid-rspec'
 gem 'pry'
+gem 'redis'
 gem 'rspec'
 # Static ruby code analyzer (linter)
 gem 'rubocop', require: false

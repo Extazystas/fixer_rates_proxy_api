@@ -5,7 +5,9 @@ require 'sinatra/namespace'
 require 'pry'
 require 'mongoid'
 
-%w[entities services serializers].each { |dir| Dir.glob("./#{dir}/*.rb", &method(:require)) }
+%w[entities services serializers helpers].each do |dir|
+  Dir.glob("./#{dir}/*.rb", &method(:require))
+end
 
 Mongoid.load! 'mongoid.config'
 
@@ -13,7 +15,8 @@ config_file 'config/settings.yml'
 
 set :app_file, __FILE__
 set :environment, :development
-ENV['MONGOID_ENV'] = 'development'
+
+include RedisStore
 
 namespace '/api/v1' do
   before do
@@ -29,9 +32,17 @@ namespace '/api/v1' do
       params[:base] || 'EUR'
     end
 
+    def cache_key(date)
+      "#{date.to_s}_#{symbols.join('_')}"
+    end
+
     def request_rate_for(date)
-      # TODO: Check cache, db and then make Fixer.io request here
-      # ExchangeRate.date(date.to_s).symbols(symbols).to_json
+      cached_rate  = Marshal.load(get_from_cache(cache_key(date)))
+      rate_from_db = ExchangeRate.base(base).date(date.to_s).symbols(symbols).first
+
+      existing_rate = cached_rate || rate_from_db
+
+      # TODO: fetch_and_store_rate if existing_rate.blank?
     end
   end
 

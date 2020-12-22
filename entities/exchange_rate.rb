@@ -11,8 +11,9 @@ class ExchangeRate
   validates :symbols, presence: true
   validates :rates, presence: true
 
-  scope :date, ->(date) { where(date: date) }
-  scope :symbols, ->(symbols) { where(symbols: symbols) }
+  scope :base,    ->(b) { where(base: b) }
+  scope :date,    ->(d) { where(date: d) }
+  scope :symbols, ->(s) { where(symbols: s) }
 
   index({ date: 1 })
 end
