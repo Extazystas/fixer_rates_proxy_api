@@ -1,0 +1,44 @@
+name: Rspec and Rubocop CI
+
+on: [push,pull_request]
+
+jobs:
+  rubocop-test:
+    runs-on: ubuntu-latest
+    name: Rubocop
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      - name: Install Rubocop
+        run: gem install rubocop
+      - name: Check code
+        run: rubocop
+  rspec-test:
+    name: RSpec
+    needs: rubocop-test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+        mongodb-version: [4.0, 4.2, 4.4]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.3.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+      - name: Install gems
+        env:
+          RACK_ENV: test
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+      - name: Build and test with rspec
+        env:
+          RACK_ENV: test
+        run: RACK_ENV=test rspec spec/
