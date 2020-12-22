@@ -23,9 +23,9 @@ class FixerRatesFetcher
   def query_params
     {
       access_key: Sinatra::Application.settings.fixer_api_key,
-      date:       date.to_s,
-      base:       base,
-      symbols:    symbols
+      date: date.to_s,
+      base: base,
+      symbols: symbols
     }
   end
 end
