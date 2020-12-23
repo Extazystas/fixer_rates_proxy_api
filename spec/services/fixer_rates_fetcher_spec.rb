@@ -25,6 +25,10 @@ RSpec.describe FixerRatesFetcher do
   let(:service) { described_class.new(base, date, symbols).call }
 
   before { allow(Sinatra::Application.settings).to receive(:fixer_api_key).and_return('111') }
+  before do
+    allow(Sinatra::Application.settings)
+      .to receive(:fixer_api_url).and_return('http://data.fixer.io/api')
+  end
 
   context 'good response' do
     before { allow(Faraday).to receive(:get).and_return(double(body: good_response_stub.to_json)) }

@@ -2,10 +2,6 @@ require 'faraday'
 require 'json'
 
 class FixerRatesFetcher
-  BASE_URL = 'http://data.fixer.io/api'.freeze
-
-  private_constant :BASE_URL
-
   attr_reader :base, :date, :symbols
 
   def initialize(base, date, symbols)
@@ -15,7 +11,12 @@ class FixerRatesFetcher
   end
 
   def call
-    response = Faraday.get("#{BASE_URL}/#{date}", query_params, { 'Accept' => 'application/json' })
+    response = Faraday.get(
+      "#{Sinatra::Application.settings.fixer_api_url}/#{date}",
+      query_params,
+      { 'Accept' => 'application/json' }
+    )
+
     JSON.parse(response.body)
   end
 

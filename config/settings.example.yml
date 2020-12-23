@@ -1,4 +1,5 @@
 default: &common_settings
+  fixer_api_url: 'http://data.fixer.io/api'
   fixer_api_key: '111'
 
 development:
