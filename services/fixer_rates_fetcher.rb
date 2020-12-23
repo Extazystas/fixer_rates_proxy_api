@@ -14,7 +14,7 @@ class FixerRatesFetcher
     response = Faraday.get(
       "#{Sinatra::Application.settings.fixer_api_url}/#{date}",
       query_params,
-      { 'Accept' => 'application/json' }
+      headers
     )
 
     JSON.parse(response.body)
@@ -29,5 +29,9 @@ class FixerRatesFetcher
       base: base,
       symbols: symbols
     }
+  end
+
+  def headers
+    { 'Accept' => 'application/json' }
   end
 end

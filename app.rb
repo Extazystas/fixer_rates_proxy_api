@@ -29,7 +29,7 @@ namespace '/api/v1' do
     if requested_date <= Date.today
       rate = request_rate_for(requested_date)
 
-      json ExchangeRateSerializer.new(rate).to_json
+      json ExchangeRateSerializer.new(rate)
     else
       halt 400, { message: 'Invalid date. Date format: 2019-12-31' }.to_json
     end
@@ -39,7 +39,7 @@ namespace '/api/v1' do
     # optional params: base, symbols
     rate = request_rate_for(Date.today)
 
-    json ExchangeRateSerializer.new(rate).to_json
+    json ExchangeRateSerializer.new(rate)
   end
 
   get '/timeseries' do
@@ -53,7 +53,7 @@ namespace '/api/v1' do
     if start_date <= end_date
       rates = Array(start_date..end_date).map do |date|
         ExchangeRateSerializer.new(request_rate_for(date))
-      end.to_json
+      end
 
       json rates
     else
