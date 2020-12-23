@@ -27,7 +27,16 @@ It takes params:
 * Persistance layer: MongoDB
 
 ## Setup
-You can start this app with `rackup -p 4567`:
+Install and run Redis and MongoDB first:
+On Mac OS with homebrew:
+```
+brew tap mongodb/brew
+brew install mongodb-community
+brew services start mongodb/brew/mongodb-community
+brew install redis
+brew services start redis
+```
+Then you can start this app with `rackup -p 4567`:
 
 ## Run tests:
 `RACK_ENV=test rspec spec/`
