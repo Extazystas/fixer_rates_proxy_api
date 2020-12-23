@@ -16,6 +16,8 @@ module Sinatra
       fetch_existing_rate_for || create_rate_from_api
     end
 
+    private
+
     def fetch_existing_rate_for
       cached_marshalled_rate = get_from_cache(cache_key)
       cached_rate  = cached_marshalled_rate && Marshal.load(cached_marshalled_rate)

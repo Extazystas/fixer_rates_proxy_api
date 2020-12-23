@@ -19,6 +19,8 @@ class FixerRatesFetcher
     JSON.parse(response.body)
   end
 
+  private
+
   def query_params
     {
       access_key: Sinatra::Application.settings.fixer_api_key,
